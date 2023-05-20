@@ -1,44 +1,50 @@
 import pandas as pd
 import numpy as np
+pd.plotting.register_matplotlib_converters()
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
 
-#Loading data
+# load the data files 
+# historical gold and bitcoin data over the past 5 years 
 bitcoin_file = "/content/drive/MyDrive/CUMMW/2022_Problem_C_DATA/BCHAIN-MKPRU.csv"
 gold_file = "/content/drive/MyDrive/CUMMW/2022_Problem_C_DATA/LBMA-GOLD.csv"
+
+# read data into data frames
 bitcoin_df = pd.read_csv(bitcoin_file)
 gold_df = pd.read_csv(gold_file)
 bitcoin_df.set_index('Date', inplace=True)
 gold_df.set_index('Date', inplace=True)
 
-# merging gold and bitcoin data
+# merge gold and bitcoin data
 result = bitcoin_df.join(gold_df, how='outer')
 result.plot()
 
 # adding old index back so "Date" becomes a column once again
 result = result.reset_index()
+
 #converting date to datetime format to sort
 result['Date'] = pd.to_datetime(result['Date'])
+
 # sorting entries by date
 result.sort_values(by='Date', inplace = True)
 result = result.reset_index()
 result = result.drop('index',axis=1)
+
 #renaming columns
 result = result.rename(columns={"Value": "bitcoin-price", "USD (PM)": "gold-price"})
+
 # column t - days since 2016-9-11
 result["t"] = (result["Date"]-result["Date"][0]).dt.days
 result
 
-#Handing missing gold
+#Handing missing gold data 
 print(result.isnull().sum())
-# filling gold price with the price AFTER since its easier for now
+
+# filling gold price 
 result = result.fillna(method='bfill', axis=0)
 print(result.isnull().sum())
 
-import pandas as pd
-pd.plotting.register_matplotlib_converters()
-import matplotlib.pyplot as plt
-%matplotlib inline
-import seaborn as sns
-print("Setup Complete")
 
 # Set the width and height of the figure
 plt.figure(figsize=(10,6))
@@ -267,6 +273,7 @@ def simulate(table):
   stackplot_data = result[['cash-at-hand', 'bitcoin-value-at-hand', 'gold-value-at-hand']]
 
   stackplot_data.plot.area(figsize=(12, 6), colormap='Paired')
+  
 plt.figure(figsize=(12,6))
 plt.style.use('seaborn-darkgrid')
 sns.lineplot(data=result[['bitcoin-price']])
