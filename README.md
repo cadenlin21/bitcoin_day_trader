@@ -1,3 +1,5 @@
+#Bitcoin Day Trader
+
 This project simulates an algorithm to optimize day trading using bitcoin, cash, and gold as the only assets available. The model incorporates several common threads of basic quantitative investing strategies, such as momentum trading, mean reversion, and noise reduction. In particular, using historical bitcoin and gold price data, the algorithm takes the following steps to determine an optimized trading strategy:
 
   1. Calculate price gradients, volatility, and profitability 
