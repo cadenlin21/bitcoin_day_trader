@@ -8,7 +8,7 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['STATIC_FOLDER'] = 'static'  # Define the static folder
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Limit file size to 16MB
 app.secret_key = 'your_secret_key'  # Needed for session
-server = app.server
+# server = app.server
 ALLOWED_EXTENSIONS = {'csv'}
 
 def allowed_file(filename):
