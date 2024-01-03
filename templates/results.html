@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simulation Results</title>
+</head>
+<body>
+    <h1>Results of the Simulation</h1>
+
+    <!-- Displaying simulation results -->
+    <h2>Simulation Data</h2>
+    <ul>
+    {% for result in simulation_results %}
+        {% if loop.index < loop.length %}
+            <li>Day {{ result['day'] }}: Cash - {{ result['cash'] }}, Gold Value - {{ result['gold_value'] }}, Bitcoin Value - {{ result['bitcoin_value'] }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+
+    <!-- Displaying final result if available -->
+    {% if simulation_results %}
+        <p><strong>Final Value:</strong> {{ simulation_results[-1]['final_value'] }}</p>
+        <p><strong>ROI:</strong> {{ simulation_results[-1]['roi'] }} %</p>
+    {% endif %}
+
+    <!-- Displaying plots -->
+    <h2>Generated Plots</h2>
+    {% for filename in plot_filenames %}
+        <div>
+            <img src="{{ url_for('static', filename=filename) }}" alt="Plot Image" style="max-width: 100%; height: auto;">
+        </div>
+    {% endfor %}
+</body>
+</html>
