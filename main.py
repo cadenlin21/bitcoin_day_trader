@@ -212,7 +212,8 @@ def simulate(table):
                 'day': t,
                 'cash': int(table['cash-at-hand'][t]),
                 'gold_value': int(table['gold-value-at-hand'][t]),
-                'bitcoin_value': int(table['bitcoin-value-at-hand'][t])
+                'bitcoin_value': int(table['bitcoin-value-at-hand'][t]),
+                'total': int(table['cash-at-hand'][t]) + int(table['gold-value-at-hand'][t]) + int(table['bitcoin-value-at-hand'][t])
             }
             simulation_results.append(day_result)
             # print(f"bitcoin_amount:{assets['bitcoin']}")

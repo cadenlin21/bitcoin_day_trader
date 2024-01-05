@@ -4,14 +4,15 @@
     <title>Simulation Results</title>
 </head>
 <body>
-    <h1>Results of the Simulation</h1>
+    <h1>Trading Results</h1>
 
     <!-- Displaying simulation results -->
-    <h2>Simulation Data</h2>
+    <h2>Portfolio Value</h2>
     <ul>
     {% for result in simulation_results %}
         {% if loop.index < loop.length %}
-            <li>Day {{ result['day'] }}: Cash - {{ result['cash'] }}, Gold Value - {{ result['gold_value'] }}, Bitcoin Value - {{ result['bitcoin_value'] }}</li>
+            <li>Day {{ result['day'] }}: Cash - {{ result['cash'] }}, Gold Value - {{ result['gold_value'] }},
+                Bitcoin Value - {{ result['bitcoin_value'] }}, Total - {{ result['total'] }}</li>
         {% endif %}
     {% endfor %}
     </ul>

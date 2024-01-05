@@ -10,7 +10,7 @@
     <div>
         <h2>Instructions:</h2>
         <p>Please upload the Bitcoin and Gold data files in CSV format. Each file should contain two columns, titled 'Date' and 'Value'. The date column should include dates in the format MM/DD/YY. The value column should contain floating point values representing the value of the asset on the given date.</p>
-        <p>Ensure that the dates are in a consistent format (e.g., YYYY-MM-DD) and that the data is correctly aligned in each column.</p>
+        <p>Ensure that the dates are in a consistent format and that the data is correctly aligned in each column.</p>
     </div>
 
     {% with messages = get_flashed_messages() %}
@@ -26,15 +26,33 @@
     <form action="/" method="post" enctype="multipart/form-data">
         <div>
             <label for="bitcoin_file">Bitcoin Data File (CSV):</label>
-            <input type="file" name="bitcoin_file" id="bitcoin_file" required>
+            <input type="file" name="bitcoin_file" id="bitcoin_file">
         </div>
         <div>
             <label for="gold_file">Gold Data File (CSV):</label>
-            <input type="file" name="gold_file" id="gold_file" required>
+            <input type="file" name="gold_file" id="gold_file">
         </div>
+
+        <div>
+            <input type="checkbox" name="use_default" id="use_default">
+            <label for="use_default">Use default files</label>
+        </div>
+
         <div>
             <input type="submit" value="Upload and Run Simulation">
         </div>
     </form>
+
+ <!-- New Section: Trading Strategy Description -->
+    <div>
+        <h2>Trading Strategy Overview</h2>
+        <p>The algorithm uses a standard, volatility-based momentum trading approach, with reversion-to-the-mean strategies and noise reduction incorporated to account for the intrinsic variance of trading bitcoin. Specifically, the algorithm works as follows:</p>
+        <ol>
+            <li>Parse input data and calculate price gradients, volatility, and profitability.</li>
+            <li>Control for limited data using noise reduction techniques.</li>
+            <li>Issue sell signals (if the amount gained from selling, accounting for commission, subtracted by moving average is above a certain margin, then sell according to the amount that would be made by the sell).</li>
+            <li>Issue buy signals (if price is rising but below the moving average) and buy an amount proportional to profitability.</li>
+        </ol>
+    </div>
 </body>
 </html>
